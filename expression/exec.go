@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"qlang.io/cl/qlang"
+	"github.com/xushiwei/qlang"
 
 	"github.com/pkg/errors"
 )

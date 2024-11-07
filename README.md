@@ -5,11 +5,6 @@
 - [Camunda下载地址](https://camunda.com/download/modeler/)
 - [文档参考](https://docs.awspaas.com/reference-guide/aws-paas-process-reference-guide/process_structure/activities.html)
 
-## 获取项目
-
-```bash
-go get github.com/antlinker/flow
-```
 
 ## 使用
 
@@ -88,7 +83,54 @@ func main() {
 	}
 ```
 
-### 7. 接入WEB流程管理
+### 7. 查询流程待办数据
+
+```go
+	result,err := flow.QueryTodoFlows("流程编号","流程处理人ID")
+	if err != nil {
+		// 处理错误
+	}
+```
+
+### 8. 查询流程历史数据
+
+```go
+result,err := flow.QueryFlowHistory("待办流程实例ID")
+if err != nil {
+	// 处理错误
+}
+```
+
+### 9. 查询已办理的流程实例ID列表
+
+```go
+ids,err := flow.QueryDoneFlowIDs("流程编号","流程处理人ID")
+if err != nil {
+	// 处理错误
+}
+```
+
+### 10. 查询节点实例的候选人ID列表
+
+```go
+ids,err := flow.QueryNodeCandidates("待办流程节点实例ID")
+if err != nil {
+	// 处理错误
+}
+```
+
+### 11. 停止流程实例
+
+```go
+	err := flow.StopFlowInstance("待办流程节点实例ID", func(flowInstance *schema.FlowInstance) bool {
+		return flowInstance.Launcher == "XXX"
+	})
+	if err != nil {
+		// 处理错误
+	}
+```
+
+### 12. 接入WEB流程管理
 
 ```go
 func main() {
@@ -106,52 +148,10 @@ func filter(ctx *gear.Context) error {
 	return nil
 }
 ```
-
-### 8. 查询流程待办数据
-
-```go
-	result,err := flow.QueryTodoFlows("流程编号","流程处理人ID")
-	if err != nil {
-		// 处理错误
-	}
-```
-
-### 9. 查询流程历史数据
-
-```go
-result,err := flow.QueryFlowHistory("待办流程实例ID")
-if err != nil {
-	// 处理错误
-}
-```
-
-### 10. 查询已办理的流程实例ID列表
-
-```go
-ids,err := flow.QueryDoneFlowIDs("流程编号","流程处理人ID")
-if err != nil {
-	// 处理错误
-}
-```
-
-### 11. 查询节点实例的候选人ID列表
-
-```go
-ids,err := flow.QueryNodeCandidates("待办流程节点实例ID")
-if err != nil {
-	// 处理错误
-}
-```
-
-### 12. 停止流程实例
-
-```go
-	err := flow.StopFlowInstance("待办流程节点实例ID", func(flowInstance *schema.FlowInstance) bool {
-		return flowInstance.Launcher == "XXX"
-	})
-	if err != nil {
-		// 处理错误
-	}
+```bash
+    cd cmd
+	go run main.go
+	http://127.0.0.1:6062/flow/
 ```
 
 ![流程管理](example/screenshots/QQ20180123-175942@2x.png)
