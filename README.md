@@ -149,9 +149,9 @@ func filter(ctx *gear.Context) error {
 }
 ```
 ```bash
-    cd cmd
-	go run main.go
-	http://127.0.0.1:6062/flow/
+cd cmd
+go run main.go
+http://127.0.0.1:6062/flow/
 ```
 
 ![流程管理](example/screenshots/QQ20180123-175942@2x.png)
